@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public string ver="Vertical";
     private Vector2 movement;
     private Vector3 nextPos;
+    private bool beamHolder;
 
     
     void Start(){
