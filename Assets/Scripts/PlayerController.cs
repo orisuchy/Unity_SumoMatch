@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public string ver="Vertical";
     private Vector2 movement;
     private Vector3 nextPos;
+    public GameObject beam;
     private bool beamHolder;
 
     
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviour
         dizzyTimer.text = "";
         speedBoostTimer.text = "";
         SetCountText();
+        //problems here
+        int v = gameObject.name.CompareTo(string.Concat("Player", beam.GetComponents<BeamControl>().playerToTrack));
+
     }
     void FixedUpdate(){
         //"Horizontal",,,"Vertical"
