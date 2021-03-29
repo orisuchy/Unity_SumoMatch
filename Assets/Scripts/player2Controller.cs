@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class player2Controller : MonoBehaviour
 {
     public int numOfPickups;
     public Text countText;
@@ -11,31 +11,53 @@ public class PlayerController : MonoBehaviour
     public Text speedBoostTimer;
     public Text winText;
     public float speed;
-    private Rigidbody2D rb2d;
-    //private Rigidbody2D rb2dp2;
+    private Rigidbody2D rb2dp2;
     private int score;
     private float timeBoost=10;
     private bool activeBoost=false;
     private float timeDizzy=10;
     private bool activeDizzy=false;
-    public string horiz="Horizontal";
-    public string ver="Vertical";
-    private Vector3 nextPos;
     
     void Start(){
-        rb2d=GetComponent<Rigidbody2D>();
-        //rb2dp2=GetComponent<Rigidbody2D>();
+        rb2dp2=GetComponent<Rigidbody2D>();
         score=0;
         winText.text="";
         dizzyTimer.text = "";
         speedBoostTimer.text = "";
         SetCountText();
     }
+    /*void Player2Movement()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            player1RB.AddForce(Vector3.left * speed);
+
+        }
+
+        if (Input.GetKey(KeyCode.H))
+        {
+            player1RB.AddForce(Vector3.right * speed);
+
+        }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            player1RB.AddForce(Vector3.forward * speed);
+
+        }
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            player1RB.AddForce(Vector3.back * speed);
+
+        }
+    }*/
     void FixedUpdate(){
-        //"Horizontal",,,"Vertical"
-        float moveHorizontal=Input.GetAxis(horiz);
-        float moveVertical=Input.GetAxis(ver);
+        
+        float moveHorizontal=Input.GetAxis("Horizontal2");
+        float moveVertical=Input.GetAxis("Vertical2");
         Vector2 movement=new Vector2(moveHorizontal,moveVertical);
+        
         if(activeBoost){
             if(timeBoost>0){
                 timeBoost-= Time.deltaTime;
@@ -62,7 +84,8 @@ public class PlayerController : MonoBehaviour
             }
             
         }
-        rb2d.AddForce(movement*speed);
+        rb2dp2.AddForce(movement*speed);
+        
         if(Input.GetKey("escape")){
             Application.Quit();
         }
@@ -89,20 +112,6 @@ public class PlayerController : MonoBehaviour
                 speed=-speed;
                 activeDizzy=true;
             }
-            
-        }
-        else if(other.gameObject.CompareTag("Background")){
-            score=score-2;
-            SetCountText();
-            nextPos = new Vector3(0, 0, 0);
-            gameObject.transform.position = nextPos;
-        }
-        else if(other.gameObject.CompareTag("Player")){
-            
-            var magnitude = 1000;
-            var force = transform.position-other.transform.position;
-            force.Normalize ();
-            rb2d.AddForce (-force * magnitude);
             
         }
 
