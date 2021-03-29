@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     private bool activeDizzy=false;
     public string horiz="Horizontal";
     public string ver="Vertical";
+    private Vector2 movement;
     private Vector3 nextPos;
+
     
     void Start(){
         rb2d=GetComponent<Rigidbody2D>();
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
         //"Horizontal",,,"Vertical"
         float moveHorizontal=Input.GetAxis(horiz);
         float moveVertical=Input.GetAxis(ver);
-        Vector2 movement=new Vector2(moveHorizontal,moveVertical);
+        movement=new Vector2(moveHorizontal,moveVertical);
         if(activeBoost){
             if(timeBoost>0){
                 timeBoost-= Time.deltaTime;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
             
         }
         rb2d.AddForce(movement*speed);
+       // rb2d.AddForce(new Vector2(0,0));
         if(Input.GetKey("escape")){
             Application.Quit();
         }
@@ -78,12 +81,12 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("SpeedBoost")){
             other.gameObject.SetActive(false);
-            speed=speed*7;
+            speed = speed * 7;
             activeBoost=true;
             
         }
-        else if(other.gameObject.CompareTag("Saw")){            
-            score=score-2;
+        else if(other.gameObject.CompareTag("Saw")){
+            score -= 2;
             SetCountText();
             if(!activeDizzy){
                 speed=-speed;
@@ -92,10 +95,12 @@ public class PlayerController : MonoBehaviour
             
         }
         else if(other.gameObject.CompareTag("Background")){
-            score=score-2;
+            score-=2;
             SetCountText();
-            nextPos = new Vector3(0, 0, 0);
+            nextPos = new Vector3(Random.Range(-7,7) , Random.Range(-7, 7), 0);
+
             gameObject.transform.position = nextPos;
+            rb2d.AddForce(new Vector2(0, 0));
         }
         else if(other.gameObject.CompareTag("Player")){
             
