@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         speedBoostTimer.text = "";
         SetCountText();
         myNum = System.Convert.ToInt32(name.Substring(name.Length - 1));
+        transform.position = RandomPosition(5);
         //problems here
         //int v = gameObject.name.CompareTo(string.Concat("Player", beam.GetComponents<BeamControl>().playerToTrack));
 
@@ -104,9 +105,8 @@ public class PlayerController : MonoBehaviour
         else if(other.gameObject.CompareTag("Background")){
             score-=2;
             SetCountText();
-            nextPos = new Vector3(Random.Range(-7,7) , Random.Range(-7, 7), 0);
             beam.SendMessage("ChangePlayer", myNum);
-            gameObject.transform.position = nextPos;
+            gameObject.transform.position = RandomPosition(7);
             //rb2d.AddForce(new Vector2(0, 0));
         }
         else if(other.gameObject.CompareTag("Player")){
@@ -121,9 +121,14 @@ public class PlayerController : MonoBehaviour
     }
     void SetCountText(){
         countText.text="Score: "+score.ToString();
-        if(numOfPickups == 0)
-        {
-            winText.text="You won!!\nYour score is " + score.ToString();
-        }
-    }    
+        //if(numOfPickups == 0)
+        //{
+        //    winText.text="You won!!\nYour score is " + score.ToString();
+        //}
+    }
+    
+    Vector3 RandomPosition(int r)
+    {
+        return new Vector3(Random.Range(-r, r), Random.Range(-r, r), 0);
+    }
 }
