@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 nextPos;
     public GameObject beam;
     private bool beamHolder;
+    public int myNum;
 
     
     void Start(){
@@ -34,8 +35,9 @@ public class PlayerController : MonoBehaviour
         dizzyTimer.text = "";
         speedBoostTimer.text = "";
         SetCountText();
+        myNum = System.Convert.ToInt32(name.Substring(name.Length - 1));
         //problems here
-        int v = gameObject.name.CompareTo(string.Concat("Player", beam.GetComponents<BeamControl>().playerToTrack));
+        //int v = gameObject.name.CompareTo(string.Concat("Player", beam.GetComponents<BeamControl>().playerToTrack));
 
     }
     void FixedUpdate(){
@@ -70,8 +72,8 @@ public class PlayerController : MonoBehaviour
             
         }
         rb2d.AddForce(movement*speed);
-       // rb2d.AddForce(new Vector2(0,0));
-        if(Input.GetKey("escape")){
+
+        if (Input.GetKey("escape")){
             Application.Quit();
         }
 
@@ -103,9 +105,9 @@ public class PlayerController : MonoBehaviour
             score-=2;
             SetCountText();
             nextPos = new Vector3(Random.Range(-7,7) , Random.Range(-7, 7), 0);
-
+            beam.SendMessage("ChangePlayer", myNum);
             gameObject.transform.position = nextPos;
-            rb2d.AddForce(new Vector2(0, 0));
+            //rb2d.AddForce(new Vector2(0, 0));
         }
         else if(other.gameObject.CompareTag("Player")){
             
