@@ -301,6 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 714670874}
   player2: {fileID: 2072168465}
+  Counter1: {fileID: 1540326695}
+  Counter2: {fileID: 786856120}
   playerToTrack: 0
 --- !u!1 &90093615
 GameObject:
@@ -1242,7 +1244,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -135}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &786856120
 MonoBehaviour:
@@ -2120,7 +2122,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -310, y: -135}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1540326695
 MonoBehaviour:
