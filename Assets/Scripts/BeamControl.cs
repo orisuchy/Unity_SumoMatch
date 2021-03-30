@@ -59,7 +59,6 @@ public class BeamControl : MonoBehaviour
             playerToTrack = 1;
             playerName = "Player1";
             currPlayerCounter = "Counter1";
-
         }
         timeCounter = 0;
     }
