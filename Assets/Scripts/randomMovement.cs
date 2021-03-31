@@ -71,5 +71,9 @@ public class randomMovement : MonoBehaviour
         var p2 = gameObject.transform.TransformPoint(1, 1, 0);
         return (p2.y - p1.y);
     }
+        Vector3 RandomPosition(int r)
+    {
+        return new Vector3(Random.Range(-r, r), Random.Range(-r, r), 0);
+    }
 
 }
