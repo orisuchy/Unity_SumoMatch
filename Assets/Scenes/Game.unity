@@ -1082,7 +1082,6 @@ MonoBehaviour:
   horiz: Horizontal
   ver: Vertical
   beam: {fileID: 85422038}
-  myNum: 0
 --- !u!50 &714670878
 Rigidbody2D:
   serializedVersion: 4
@@ -1099,7 +1098,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 49d06df7a47a47540818e0d6d142b2cd, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -2982,7 +2981,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 49d06df7a47a47540818e0d6d142b2cd, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -3008,7 +3007,6 @@ MonoBehaviour:
   horiz: Horizontal2
   ver: Vertical2
   beam: {fileID: 85422038}
-  myNum: 0
 --- !u!212 &2072168469
 SpriteRenderer:
   m_ObjectHideFlags: 0

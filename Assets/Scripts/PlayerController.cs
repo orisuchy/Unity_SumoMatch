@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 nextPos;
     public GameObject beam;
     private bool beamHolder;
-    public int myNum;
+    private int myNum;
 
     
     void Start(){
@@ -111,10 +111,10 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("Player")){
             
-            var magnitude = 1000;
-            var force = transform.position-other.transform.position;
-            force.Normalize ();
-            rb2d.AddForce (-force * magnitude);
+            //var magnitude = 1000;
+            //var force = transform.position-other.transform.position;
+            //force.Normalize ();
+            //rb2d.AddForce (-force * magnitude);
             
         }
 
