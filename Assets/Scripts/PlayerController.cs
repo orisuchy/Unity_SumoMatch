@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool beamHolder;
     private int myNum;
     private ArrayList spawnPickups;
+    private bool fallFlag=false;
     
 
     
@@ -77,7 +78,14 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+        /*if(fallFlag){
+            for(int i=0;i<2;i++){
+              gameObject.transform.position = (0,0,0);
+            }
+        }*/
         rb2d.AddForce(movement*speed);
+        
+        
 
         if (Input.GetKey("escape")){
             Application.Quit();
@@ -119,9 +127,11 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("Background")){
             
-            SetCountText();
+            //SetCountText();
             beam.SendMessage("ChangePlayer", myNum);
             gameObject.transform.position = RandomPosition(7);
+            fallFlag=true;
+            
             //rb2d.AddForce(new Vector2(0, 0));
         }
         else if(other.gameObject.CompareTag("Player")){
