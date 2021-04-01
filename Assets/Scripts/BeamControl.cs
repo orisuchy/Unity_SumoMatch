@@ -10,12 +10,14 @@ public class BeamControl : MonoBehaviour
     public GameObject player2;
     public Text Counter1;
     public Text Counter2;
+    public Text mainTimer;
 
     public int playerToTrack;
 
     private string playerName;
     private string currPlayerCounter;
     private float timeCounter = 0;
+    private float gameTimer=90;
 
 
     void Start()
@@ -23,11 +25,21 @@ public class BeamControl : MonoBehaviour
         playerToTrack = Random.Range(1, 3);
         playerName = string.Concat("Player", playerToTrack.ToString());
         currPlayerCounter = string.Concat("Counter", playerToTrack.ToString());
+        mainTimer.text="";
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        gameTimer-=Time.deltaTime;
+        mainTimer.text = "Time remaining: " + System.Math.Round(gameTimer).ToString();
+        if(gameTimer<0){
+            if(player1.GetComponent<PlayerController>().getScore()>player2.GetComponent<PlayerController>().getScore()){
+                player1.SendMessage("setWinText", "player1");
+            }else{
+               player2.SendMessage("setWinText", "player2"); 
+            }
+        }
         if (player1.name.Equals(playerName))
         {
             transform.position = player1.transform.position;
@@ -53,12 +65,14 @@ public class BeamControl : MonoBehaviour
             playerToTrack = 2;
             playerName = "Player2";
             currPlayerCounter = "Counter2";
+            player1.SendMessage("addCircleScore", System.Math.Round(timeCounter));
         }
         else if (playerNum == 2)
         {
             playerToTrack = 1;
             playerName = "Player1";
             currPlayerCounter = "Counter1";
+            player2.SendMessage("addCircleScore", System.Math.Round(timeCounter));
         }
         timeCounter = 0;
     }
