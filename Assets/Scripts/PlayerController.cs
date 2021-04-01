@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Text countText;
     public Text dizzyTimer;
     public Text speedBoostTimer;
-    public Text winText;
+    public Text winText;    
     public float speed;
     private Rigidbody2D rb2d;
     //private Rigidbody2D rb2dp2;
@@ -25,15 +25,18 @@ public class PlayerController : MonoBehaviour
     public GameObject beam;
     private bool beamHolder;
     private int myNum;
+    private ArrayList spawnPickups;
+    
 
     
     void Start(){
         rb2d=GetComponent<Rigidbody2D>();
         //rb2dp2=GetComponent<Rigidbody2D>();
-        score=0;
+        score=0;    
+        spawnPickups=new ArrayList(numOfPickups);
         winText.text="";
         dizzyTimer.text = "";
-        speedBoostTimer.text = "";
+        speedBoostTimer.text = "";        
         SetCountText();
         myNum = System.Convert.ToInt32(name.Substring(name.Length - 1));
         transform.position = RandomPosition(5);
@@ -43,9 +46,11 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate(){
         //"Horizontal",,,"Vertical"
+        
         float moveHorizontal=Input.GetAxis(horiz);
         float moveVertical=Input.GetAxis(ver);
         movement=new Vector2(moveHorizontal,moveVertical);
+
         if(activeBoost){
             if(timeBoost>0){
                 timeBoost-= Time.deltaTime;
@@ -82,9 +87,19 @@ public class PlayerController : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.CompareTag("PickUp")){
+            spawnPickups.Add(other.gameObject);
             other.gameObject.SetActive(false);
             score++;
             numOfPickups--;
+            if(numOfPickups<3){
+                for(int i=0;i<spawnPickups.Count;i++){
+                    numOfPickups++;
+                    GameObject p=(GameObject)spawnPickups[i];
+                    p.SetActive(true);
+
+                }
+                spawnPickups.Clear();
+            }
             SetCountText();
         }
         else if(other.gameObject.CompareTag("SpeedBoost")){
@@ -103,7 +118,7 @@ public class PlayerController : MonoBehaviour
             
         }
         else if(other.gameObject.CompareTag("Background")){
-            score-=2;
+            
             SetCountText();
             beam.SendMessage("ChangePlayer", myNum);
             gameObject.transform.position = RandomPosition(7);
@@ -119,6 +134,9 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    public void  addCircleScore(int timerscore){
+        this.score+=timerscore;
+    }
     void SetCountText(){
         countText.text="Score: "+score.ToString();
         //if(numOfPickups == 0)
@@ -126,9 +144,16 @@ public class PlayerController : MonoBehaviour
         //    winText.text="You won!!\nYour score is " + score.ToString();
         //}
     }
+    public int getScore(){
+        return score;
+    }
+    public void setWinText(string s){
+        winText.text=s+" You won!!\nYour score is " + score.ToString();
+    }
     
     Vector3 RandomPosition(int r)
     {
         return new Vector3(Random.Range(-r, r), Random.Range(-r, r), 0);
     }
+
 }
