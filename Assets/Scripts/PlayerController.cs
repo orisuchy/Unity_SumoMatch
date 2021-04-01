@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool activeDizzy=false;
     public string horiz="Horizontal";
     public string ver="Vertical";
-    private Vector2 movement;
+    private Vector3 movement;
     private Vector3 nextPos;
     public GameObject beam;
     private bool beamHolder;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         
         float moveHorizontal=Input.GetAxis(horiz);
         float moveVertical=Input.GetAxis(ver);
-        movement=new Vector2(moveHorizontal,moveVertical);
+        movement=new Vector3(moveHorizontal,moveVertical,0);
 
         if(activeBoost){
             if(timeBoost>0){
@@ -83,9 +83,11 @@ public class PlayerController : MonoBehaviour
               gameObject.transform.position = (0,0,0);
             }
         }*/
-        rb2d.AddForce(movement*speed);
-        
-        
+
+        rb2d.AddForce(movement * speed);
+        //transform.position += movement * speed * Time.deltaTime;
+
+
 
         if (Input.GetKey("escape")){
             Application.Quit();
@@ -130,9 +132,8 @@ public class PlayerController : MonoBehaviour
             //SetCountText();
             beam.SendMessage("ChangePlayer", myNum);
             gameObject.transform.position = RandomPosition(7);
-            fallFlag=true;
-            
-            //rb2d.AddForce(new Vector2(0, 0));
+            //fallFlag=true;
+            rb2d.velocity = Vector2.zero;
         }
         else if(other.gameObject.CompareTag("Player")){
             
@@ -144,7 +145,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    public void  addCircleScore(int timerscore){
+    public void addCircleScore(int timerscore){
         this.score+=timerscore;
     }
     void SetCountText(){

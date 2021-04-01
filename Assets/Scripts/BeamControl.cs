@@ -31,7 +31,7 @@ public class BeamControl : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        gameTimer-=Time.deltaTime;
+        
         mainTimer.text = "Time remaining: " + System.Math.Round(gameTimer).ToString();
         if(gameTimer<0){
             if(player1.GetComponent<PlayerController>().getScore()>player2.GetComponent<PlayerController>().getScore()){
@@ -39,6 +39,10 @@ public class BeamControl : MonoBehaviour
             }else{
                player2.SendMessage("setWinText", "player2"); 
             }
+        }
+        else
+        {
+            gameTimer -= Time.deltaTime;
         }
         if (player1.name.Equals(playerName))
         {
