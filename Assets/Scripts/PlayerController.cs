@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool beamHolder;
     private int myNum;
     private ArrayList spawnPickups;
-    private bool fallFlag=false;
+    //private bool fallFlag=false;
     
 
     
@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
     }
     public void addCircleScore(int timerscore){
         this.score+=timerscore;
+        SetCountText();
     }
     void SetCountText(){
         countText.text="Score: "+score.ToString();

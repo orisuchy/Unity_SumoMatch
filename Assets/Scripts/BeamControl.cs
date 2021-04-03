@@ -64,20 +64,22 @@ public class BeamControl : MonoBehaviour
 
     void ChangePlayer(int playerNum)
     {
-        if (playerNum == 1)
+        if (playerNum == 1 && playerToTrack==1)
         {
             playerToTrack = 2;
             playerName = "Player2";
             currPlayerCounter = "Counter2";
             player1.SendMessage("addCircleScore", System.Math.Round(timeCounter));
+            timeCounter = 0;
         }
-        else if (playerNum == 2)
+        else if (playerNum == 2 && playerToTrack==2)
         {
             playerToTrack = 1;
             playerName = "Player1";
             currPlayerCounter = "Counter1";
             player2.SendMessage("addCircleScore", System.Math.Round(timeCounter));
+            timeCounter = 0;
         }
-        timeCounter = 0;
+        
     }
 }
